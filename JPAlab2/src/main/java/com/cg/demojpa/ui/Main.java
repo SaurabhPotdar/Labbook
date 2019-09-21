@@ -11,7 +11,9 @@ import javax.persistence.Persistence;
 import com.cg.demojpa.dto.Author;
 import com.cg.demojpa.dto.Book;
 import com.cg.demojpa.service.AuthorService;
+import com.cg.demojpa.service.BookService;
 import com.cg.demojpa.service.IAuthorService;
+import com.cg.demojpa.service.IBookService;
 
 public class Main {
 
@@ -33,19 +35,29 @@ public class Main {
 
 		author1.setBookList(bookList);
 		
-//		EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory("DemoJPA");
-//		EntityManager em = entityFactory.createEntityManager();
-//		EntityTransaction tran = em.getTransaction();
-//		tran.begin();
-//		em.persist(author1);
-//		tran.commit();
-		
-		authorService.addAuthor(author1);
+		//authorService.addAuthor(author1);
 		
 		//Add book to a author -- First get author object from the given authorId.
 		//Get author list and add book to the author list, then addAuthor.
 		
+//		Book book4 = new Book(7, "C++", 2000);
+//		bookList.add(book4);
+//		bookList.remove(book3);
+//		bookList.remove(book4);
+//		author2.setBookList(bookList);
+//		authorService.addAuthor(author2);
 		
+		IBookService bookService = new BookService();
+		
+		List<Book> listOfBook = bookService.listOfBook();
+		
+		for(Book b:listOfBook) {
+			System.out.println(b.getBookIsbn()+" "+b.getBookPrice()+" "+b.getBookTitle());
+		}
+		
+//		for(Book b:listOfBook) {
+//			System.out.println(b.toString());
+//		}
 
 	}
 

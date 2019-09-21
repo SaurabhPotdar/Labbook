@@ -1,5 +1,7 @@
 package com.cg.demojpa.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -35,6 +37,14 @@ public class BookDao implements IBookDao {
 	public boolean removeBook(int bookIsbn) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<Book> listOfBook() {
+		EntityManager em = entityFactory.createEntityManager();
+		Query query = em.createQuery("From Book");
+		List<Book> bookList = query.getResultList();
+		return bookList;
 	}
 
 }
