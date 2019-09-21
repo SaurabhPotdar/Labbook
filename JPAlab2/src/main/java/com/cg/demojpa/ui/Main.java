@@ -58,6 +58,18 @@ public class Main {
 //		for(Book b:listOfBook) {
 //			System.out.println(b.toString());
 //		}
+		
+		listOfBook = bookService.findBookBetweenPrice(500d,1500.0d);
+		
+		for(Book b:listOfBook) {
+			System.out.println(b.getBookIsbn()+" "+b.getBookPrice()+" "+b.getBookTitle());
+		}
+		
+		listOfBook = bookService.findBookWrittenByAuthor("Paulo");
+		
+		for(Book b:listOfBook) {
+			System.out.println(b.getBookIsbn()+" "+b.getBookPrice()+" "+b.getBookTitle());
+		}
 
 	}
 

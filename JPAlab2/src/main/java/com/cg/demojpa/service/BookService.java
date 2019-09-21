@@ -30,4 +30,14 @@ public class BookService implements IBookService {
 		return bookDao.listOfBook();
 	}
 
+	@Override
+	public List<Book> findBookBetweenPrice(double min, double max) {
+		return bookDao.findBookBetweenPrice(min, max);
+	}
+
+	@Override
+	public List<Book> findBookWrittenByAuthor(String authorName) {
+		return bookDao.findBookWrittenByAuthor(authorName);
+	}
+
 }

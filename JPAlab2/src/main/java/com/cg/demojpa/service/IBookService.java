@@ -10,5 +10,7 @@ public interface IBookService {
 	public Book findBook(int bookIsbn);
 	public boolean removeBook(int bookIsbn);
 	public List<Book> listOfBook();
+	public List<Book> findBookBetweenPrice(double min, double max);
+	public List<Book> findBookWrittenByAuthor(String authorName);
 
 }

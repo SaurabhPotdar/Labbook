@@ -47,4 +47,24 @@ public class BookDao implements IBookDao {
 		return bookList;
 	}
 
+	@Override
+	public List<Book> findBookBetweenPrice(double min, double max) {
+		EntityManager em = entityFactory.createEntityManager();
+		Query query = em.createQuery("From Book where bookPrice between :first AND :second");
+		query.setParameter("first", min);
+		query.setParameter("second", max);
+		List<Book> bookList = query.getResultList();
+		return bookList;
+	}
+
+	@Override
+	public List<Book> findBookWrittenByAuthor(String authorName) {
+		EntityManager em = entityFactory.createEntityManager();
+		Query query = em.createQuery("SELECT b from book b where b.authorName: first");
+		query.setParameter("first", "Paulo");
+		List<Book> bookList = query.getResultList();
+		return bookList;
+	}
+
+
 }
