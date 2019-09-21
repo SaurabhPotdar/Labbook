@@ -1,0 +1,11 @@
+package com.cg.demojpa.dao;
+
+import com.cg.demojpa.dto.Author;
+
+public interface IAuthorDao {
+	
+	public Author addAuthor(Author author);
+	public Author findAuthor(int authorId);
+	public boolean removeAuthor(int authorId);
+
+}
