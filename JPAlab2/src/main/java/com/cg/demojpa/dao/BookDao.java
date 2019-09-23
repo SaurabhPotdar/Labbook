@@ -8,29 +8,19 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import com.cg.demojpa.dto.Author;
 import com.cg.demojpa.dto.Book;
 
 public class BookDao implements IBookDao {
 	
-	EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory("DemoJPA");
+	private static EntityManagerFactory entityManagerFactory;
+	private static EntityManager entityManager;
+	private static EntityTransaction tx;
 
-	@Override
-	public Book addBook(Book book) {
-		EntityManager em = entityFactory.createEntityManager();
-		EntityTransaction tran = em.getTransaction();
-		tran.begin();
-		if(book==null)
-			em.persist(book);
-		else
-			em.merge(book);
-		tran.commit();
-		return book;
-	}
-
-	@Override
-	public Book findBook(int bookIsbn) {
-		// TODO Auto-generated method stub
-		return null;
+	static {
+		entityManagerFactory = Persistence.createEntityManagerFactory("DemoJPA");
+		entityManager = entityManagerFactory.createEntityManager();
+		tx = entityManager.getTransaction();
 	}
 
 	@Override
@@ -41,16 +31,30 @@ public class BookDao implements IBookDao {
 
 	@Override
 	public List<Book> listOfBook() {
-		EntityManager em = entityFactory.createEntityManager();
-		Query query = em.createQuery("From Book");
+		Query query = entityManager.createQuery("From Book");
 		List<Book> bookList = query.getResultList();
 		return bookList;
+	}
+	
+	@Override
+	public Book addBook(Book book) {
+		tx.begin();
+		book.getAuthorList().forEach(author ->{
+			author.getBookList().add(book);
+		});
+		entityManager.persist(book);
+		tx.commit();
+		return book;
+	}
+
+	@Override
+	public Book findBook(int bookID) {
+		return entityManager.find(Book.class, bookID);
 	}
 
 	@Override
 	public List<Book> findBookBetweenPrice(double min, double max) {
-		EntityManager em = entityFactory.createEntityManager();
-		Query query = em.createQuery("From Book where bookPrice between :first AND :second");
+		Query query = entityManager.createQuery("From Book where bookPrice between :first AND :second");
 		query.setParameter("first", min);
 		query.setParameter("second", max);
 		List<Book> bookList = query.getResultList();
@@ -59,11 +63,13 @@ public class BookDao implements IBookDao {
 
 	@Override
 	public List<Book> findBookWrittenByAuthor(String authorName) {
-		EntityManager em = entityFactory.createEntityManager();
-		Query query = em.createQuery("SELECT b from book b where b.authorName: first");
-		query.setParameter("first", "Paulo");
-		List<Book> bookList = query.getResultList();
-		return bookList;
+		Query query = entityManager.createQuery("FROM Author WHERE authorName=:first");
+		query.setParameter("first", authorName);
+		Author author = (Author) query.getSingleResult();
+		if(author != null)
+			return author.getBookList();
+		else
+			return null;
 	}
 
 
