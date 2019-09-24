@@ -1,28 +1,24 @@
 package com.cg.eis.service;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 import com.cg.eis.bean.Employee;
+import com.cg.eis.dao.EmployeeDao;
+import com.cg.eis.dao.IEmployeeDao;
 
 public class EmployeeService implements IEmployeeService {
 
-	
+	IEmployeeDao employeeDao = new EmployeeDao();
 	
 	public boolean addEmployee(Employee employee) {
-		// TODO Auto-generated method stub
-		return false;
+		return employeeDao.addEmployee(employee);
 	}
 
-	public String findInsuranceScheme(BigDecimal employeeSalary,
+	public String findInsuranceScheme(double employeeSalary,
 			String employeeDesignation) {
-		// TODO Auto-generated method stub
-		return null;
+		return employeeDao.findInsuranceScheme(employeeSalary, employeeDesignation);
 	}
 
-	public void showEmployee(BigInteger employeeId) {
-		// TODO Auto-generated method stub
-
+	public Employee showEmployee(int employeeId) {
+		return employeeDao.showEmployee(employeeId);
 	}
 
 }

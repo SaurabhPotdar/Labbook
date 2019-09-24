@@ -1,8 +1,8 @@
-package com.cg.eis.service;
+package com.cg.eis.dao;
 
 import com.cg.eis.bean.Employee;
 
-public interface IEmployeeService {
+public interface IEmployeeDao {
 	
 	public boolean addEmployee(Employee employee);
 	
