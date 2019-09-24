@@ -3,4 +3,8 @@
   <groupId>com.cg.lab14</groupId>
   <artifactId>lab14</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
 </project>
